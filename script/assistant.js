@@ -86,11 +86,6 @@ function itemToTextChar(name, rate, type){
             var origin = noteChar[rate];
             // 小字
             if (name === name.toLowerCase()){
-            // if (name[1] === '2'){
-            // }
-            // else if (name[1] === '0'){
-            //     origin = origin.toUpperCase();
-            // }
                 if (name[1] === undefined || name[1] === '0' || name[1] === '1'){
                     origin = origin.toUpperCase();
                 }
@@ -165,9 +160,6 @@ function charToDotChar(char){
         char.toLowerCase().charCodeAt(0) <= 'e'.charCodeAt()){
         return String.fromCharCode(char.charCodeAt(0) + 6);
     }
-    // if (char.toLowerCase() === 'f'){
-    //     return char;
-    // }
     if ('O'.charCodeAt() <= char.charCodeAt(0) &&
         char.charCodeAt(0) <= 'S'.charCodeAt()){
         return String.fromCharCode(char.charCodeAt(0) + 6);

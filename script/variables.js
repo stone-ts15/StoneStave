@@ -1,12 +1,7 @@
-/**
- * Created by lenovo on 2017/7/25.
- */
-
 
 // object
 // stave
 var music = [];
-var page;
 var currentPageIndex = 0;
 var pageSize = {
     x: 840,
@@ -21,8 +16,6 @@ var pageWidth = 840;
 var pageHeight = 1188;
 
 var pageDom;
-var pageProportionX = 0.9;
-var pageProportionY = 0.9;
 
 var pageOffset = {x: 60, y: 200};
 var normalPageOffset = {x: 60, y: 80};
@@ -37,15 +30,11 @@ var akvoFont;
 
 const lineNum = 5;
 
-
-
 var barPerRow = 3;
 var clefWidth = 40;
 var keyWidth = 80;
 var timeWidth = 30;
 var timeSpace = 15;
-
-var barLengthOrigin = (lineLength - clefWidth - keyWidth) / barPerRow;
 
 var horizontalLineWidth = 1;
 var verticalLineWidth = 2;
@@ -72,7 +61,6 @@ var keyChar = {
     'nature': '/'
 };
 
-// var nameSequence = [4, 1, 5, 2, 6, 3, 7];
 var sharpNameSequence = ['f2', 'c2', 'g2', 'd2', 'a1', 'e2', 'b1'];
 var flatNameSequence = ['b1', 'e2', 'a1', 'd2', 'g1', 'c2', 'f1'];
 var keySequence = {
@@ -85,15 +73,7 @@ var keySequence = {
 
 var keySpace = 7;
 
-
 var cursorColor = '#ff3333';
-
-var cursorPos = {
-    line: null,
-    row: 0,
-    bar: 0,
-    index: 0
-};
 
 // 当前选中的操作
 var operation = {
@@ -145,6 +125,3 @@ var tailOffset = {
 };
 
 var inSet = false;
-
-var pianoDom;
-var averageDuration;

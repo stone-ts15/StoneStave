@@ -1,6 +1,3 @@
-
-
-
 function addClickButtonEvent(){
     $('button.note').each(function(index){
         this.addEventListener('click', function(){
@@ -14,12 +11,7 @@ function addClickButtonEvent(){
             operation.rate = Number($(this).attr('rate'));
         }, true);
     });
-    // $('button.save')[0].addEventListener('click', function(){
-    //     saveCurrentPageToPng();
-    // });
     $('button.save').button().click(function() {
-        // inSet = true;
-        // $('div.key').dialog( "open" );
         saveCurrentPageToPng();
     });
 }
@@ -171,17 +163,11 @@ function autoCreateNoteFromKey(event){
         case 98:
         case 51:
         case 99:
-            // if (inSet){
-            //     break;
-            // }
             drawNote(event.keyCode);
             break;
         // 休止符
         case 48:
         case 96:
-            // if (inSet){
-            //     break;
-            // }
             drawRest();
             break;
         // 左右移动
@@ -236,7 +222,6 @@ function changePage(keyCode){
         }
     }
     else if (keyCode === 34){
-        //music[0].hideElem();
         music[currentPageIndex].svgItem.hide();
         currentPageIndex++;
         if (currentPageIndex < music.length){
@@ -255,7 +240,6 @@ function changePage(keyCode){
 }
 
 function drawNote(keyCode){
-    //page.rows[cursorPos.row].bars[cursorPos.bar].appendNote(name);
     var name;
     switch (keyCode){
         case 49:
@@ -323,7 +307,6 @@ function moveCursorHorizontal(keyCode){
             if (music[currentPageIndex].cursor.bar === music[currentPageIndex].cursor.spage.rows[music[currentPageIndex].cursor.row].bars.length-1){
                 if (music[currentPageIndex].cursor.row === music[currentPageIndex].cursor.spage.rows.length-1){
                     // 不要翻页
-                    //return;
                 }
                 else{
                     music[currentPageIndex].cursor.row++;
@@ -348,7 +331,6 @@ function moveCursorVertical(keyCode){
     music[currentPageIndex].cursor.cancelHighlightNote();
     if (keyCode === 38){
         if (music[currentPageIndex].cursor.row === 0){
-            //return;
         }
         else{
             music[currentPageIndex].cursor.row--;
@@ -358,7 +340,6 @@ function moveCursorVertical(keyCode){
     }
     else if (keyCode === 40){
         if (music[currentPageIndex].cursor.row === music[currentPageIndex].cursor.spage.rows.length-1){
-            //return;
         }
         else{
             music[currentPageIndex].cursor.row++;
@@ -372,11 +353,9 @@ function moveCursorVertical(keyCode){
 
 function moveNote(keyCode){
     if (keyCode === 38){
-        //c.barObj.notes[c.index-1].raise();
         music[currentPageIndex].cursor.barObj.raiseNote(music[currentPageIndex].cursor.index-1);
     }
     else if (keyCode === 40){
-        //c.barObj.notes[c.index-1].raise();
         music[currentPageIndex].cursor.barObj.fallNote(music[currentPageIndex].cursor.index-1);
     }
     console.log(music[currentPageIndex].cursor.barObj.notes[music[currentPageIndex].cursor.index-1].name);
@@ -422,21 +401,6 @@ function deleteNote(){
     music[currentPageIndex].cursor.highlightNote();
 }
 
-function loadSoundSource(){
-    $('<audio id="piano"><source src="small.mp3" type="audio/mpeg"> </audio>').appendTo('body');//载入声音文件
-    pianoDom = $('#piano')[0];
-    averageDuration = pianoDom.duration / 88;
-    // pianoDom.play();
-    // var oin = setTimeout(function(){
-    //     pianoDom.currentTime = 5;
-    //     pianoDom.pause();
-    //     pianoDom.play();
-    //     //pianoDom.play();
-    //     //pianoDom.currentTime = 30;
-    // }, 10000);
-
-}
-
 function saveCurrentPageToPng(){
     music[currentPageIndex].cursor.cancelHighlightNote();
     music[currentPageIndex].cursor.line.move(-99, -99);
@@ -444,5 +408,4 @@ function saveCurrentPageToPng(){
     saveSvgAsPng($('.page *')[0], 'page_' + (currentPageIndex+1) + '.png');
     music[currentPageIndex].cursor.update();
     music[currentPageIndex].cursor.highlightNote();
-
 }

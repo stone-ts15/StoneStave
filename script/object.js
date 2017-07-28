@@ -1,10 +1,4 @@
 
-
-
-function table(){
-
-}
-
 function Page(container, index, clef, keySignature, timeSignature){
     var _this = this;
 
@@ -43,7 +37,6 @@ function Page(container, index, clef, keySignature, timeSignature){
                         _this.cursor.index = k+1;
                         _this.cursor.update();
                         _this.cursor.highlightNote();
-                        //console.log(i + ',' + j + ',' + k);
                         break;
                     }
                 }
@@ -236,12 +229,8 @@ function Row(spage, svg, index, clef, keySignature, timeSignature){
 
     // init
     this.drawLines();
-    //this.drawCursor();
     this.drawClef();
-    //this.preCursorX += clefWidth;
-    // this.drawCursor();
     this.drawKey();
-    //this.preCursorX += this.keyNum * keySpace + timeSpace;
 
     this.headWidth = clefWidth + this.keyNum * keySpace + timeSpace;
 
@@ -250,19 +239,11 @@ function Row(spage, svg, index, clef, keySignature, timeSignature){
             this.drawTime(timeSignature);
             this.headWidth += timeWidth;
         }
-        //this.preCursorX += timeWidth;
     }
 
-
-
-    // this.drawCursor();
     this.createBars();
     return this;
 }
-
-
-// var li = row();
-
 
 // 小节
 function Bar(spage, svg, row, index, headWidth, maxDuration){
@@ -293,7 +274,6 @@ function Bar(spage, svg, row, index, headWidth, maxDuration){
             });
     };
     this.insertNote = function(index, name){
-        //var duration = 4 / operation.rate;
         if (_this.duration + 4 / operation.rate > _this.maxDuration){
             // 超过时值限制，添加失败
             return false;
@@ -324,7 +304,6 @@ function Bar(spage, svg, row, index, headWidth, maxDuration){
             }
         }
 
-        //if (index > 0 && _this.notes[index].type === 'note' && _this.notes[index-1].type === 'note'){
         if (isTailAvailable(_this.notes[index], _this.notes[index-1])){
             _this.noteTails.push(new Tail(_this.svgItem, _this.notes[index], _this.notes[index-1]));
         }
@@ -340,7 +319,6 @@ function Bar(spage, svg, row, index, headWidth, maxDuration){
         _this.noteSpace = (_this.barLength - _this.notes.length*noteWidth) / (_this.notes.length+1);
         for (var i = 0; i < _this.notes.length; i++){
             _this.notes[i].update(i, _this.noteSpace);
-            // _this.notes[i].moveText();
         }
     };
     this.resetTails = function () {
@@ -361,7 +339,6 @@ function Bar(spage, svg, row, index, headWidth, maxDuration){
             }
         }
         _this.notes[index].highlight();
-        // _this.notes[index].moveText();
     };
     this.fallNote = function (index) {
         if (_this.notes[index].type !== 'note'){
@@ -376,7 +353,6 @@ function Bar(spage, svg, row, index, headWidth, maxDuration){
             }
         }
         _this.notes[index].highlight();
-        // _this.notes[index].moveText();
     };
     this.accidentalOperate = function (index, operator) {
         _this.notes[index].accidentalOperate(operator);
@@ -394,8 +370,6 @@ function Bar(spage, svg, row, index, headWidth, maxDuration){
         _this.duration += _this.notes[index].dotOperate();
     };
     this.deleteNote = function (index) {
-
-
         for (var i = 0; i < _this.noteTails.length; i++){
             if (_this.noteTails[i].end[0].index === index || _this.noteTails[i].end[1].index === index){
                 _this.noteTails[i].destroy();
@@ -407,9 +381,7 @@ function Bar(spage, svg, row, index, headWidth, maxDuration){
         _this.notes.splice(index, 1);
         _this.resetPosition();
         _this.resetTails();
-
     };
-
 
     // init
     this.drawEndLine();
@@ -474,46 +446,8 @@ function Note(svg, rate, type, char, name, offset, index, noteSpace){
         try{_this.accidental.obj.fill({color: noteColor})}catch (e){}
     };
     this.raise = function () {
-        switch (_this.name[0]){
-            case 'B':
-                // 大字组
-                switch (_this.name[1]){
-                    case undefined:
-                        _this.name = 'c';
-                        break;
-                    case '1':
-                        _this.name = 'C';
-                        break;
-                    default:
-                        _this.name = 'C' + (Number(_this.name[1])-1).toString();
-                        break;
-                }
-                break;
-            case 'b':
-                switch (_this.name[1]){
-                    case undefined:
-                        _this.name = 'c1';
-                        break;
-                    default:
-                        _this.name = 'c' + (Number(_this.name[1])+1).toString();
-                        break;
-                }
-                break;
-            case 'g':
-                // _this.time.splice(0, 1, 'a');
-                //_this.name[0] = 'a';
-                _this.name = 'a' + (_this.name[1] || '');
-                break;
-            case 'G':
-                // _this.time.splice(0, 1, 'A');
-                _this.name = 'A' + (_this.name[1] || '');
-                break;
-            default:
-                //_this.name[0] = String.fromCharCode(_this.name.charCodeAt(0)+1);
-                _this.name = String.fromCharCode(_this.name.charCodeAt(0)+1) + (_this.name[1] || '');
-                break;
-        }
         // 换符干方向
+        _this.name = valueToNote(noteToValue(_this.name) + 1);
         if (_this.name === 'c2'){
             _this.char = _this.char.toLowerCase();
             _this.obj.remove();
@@ -521,7 +455,6 @@ function Note(svg, rate, type, char, name, offset, index, noteSpace){
             _this.highlight();
         }
 
-        //
         _this.moveText();
         _this.moveAccidental();
 
@@ -529,44 +462,7 @@ function Note(svg, rate, type, char, name, offset, index, noteSpace){
         _this.drawLegerLine();
     };
     this.fall = function () {
-        switch (_this.name[0]){
-            case 'C':
-                switch (_this.name[1]){
-                    case undefined:
-                        _this.name = 'B1';
-                        break;
-                    default:
-                        _this.name = 'B' + (Number(_this.name[1])+1).toString();
-                        break;
-                }
-                break;
-            case 'c':
-                switch (_this.name[1]){
-                    case undefined:
-                        _this.name = 'B';
-                        break;
-                    case '1':
-                        _this.name = 'b';
-                        break;
-                    default:
-                        _this.name = 'b' + (Number(_this.name[1])-1);
-                        break;
-                }
-                break;
-            case 'a':
-                _this.name = 'g' + (_this.name[1] || '');
-                //_this.name[0] = 'g';
-                break;
-            case 'A':
-                _this.name = 'G' + (_this.name[1] || '');
-                //_this.name[0] = 'G';
-                break;
-            default:
-                //_this.name[0] = String.fromCharCode(_this.name.charCodeAt(0)-1)[0];
-                _this.name = String.fromCharCode(_this.name.charCodeAt(0)-1) + (_this.name[1] || '');
-                break;
-        }
-        // 换符干方向
+        _this.name = valueToNote(noteToValue(_this.name) - 1);
         if (_this.name === 'a1'){
             _this.char = _this.char.toUpperCase();
             _this.obj.remove();
@@ -672,7 +568,6 @@ function Note(svg, rate, type, char, name, offset, index, noteSpace){
         _this.obj.remove();
         _this.initText();
         _this.moveText();
-        //_this.highlight();
     };
 
     this.initText();
@@ -701,17 +596,11 @@ function Cursor(spage, row, bar, index){
     this.highlightNote = function () {
         if (_this.index !== 0){
             _this.barObj.notes[_this.index-1].highlight();
-            // for (var j = 0; j < _this.barObj.notes[_this.index-1].obj.length; j++){
-            //     _this.barObj.notes[_this.index-1].obj[j].fill({color: highlightColor});
-            // }
         }
     };
     this.cancelHighlightNote = function () {
         if (_this.index !== 0){
             _this.barObj.notes[_this.index-1].cancelHighlight();
-            // for (var j = 0; j < _this.barObj.notes[_this.index-1].obj.length; j++){
-            //     _this.barObj.notes[_this.index-1].obj[j].fill({color: noteColor});
-            // }
         }
     };
     this.update = function (){
@@ -726,13 +615,9 @@ function Cursor(spage, row, bar, index){
                         _this.offset.y,
                         _this.offset.x + noteSpace * (_this.index) + noteWidth * _this.index,// - noteWidth/2,
                         _this.offset.y + lineSpace*(lineNum-1));
-
-        // 把新的选中的音符涂成红色
-
     };
 
     // init
-    // this.update();
     return this;
 }
 
@@ -743,7 +628,6 @@ function Tail(svg, note1, note2){
 
     this.svgItem = svg;
     this.end = [note1, note2];
-    //this.rate = [_this.end[0].rate, _this.end[1].rate];
     this.stemDown = (_this.end[0].char === _this.end[0].char.toLowerCase() &&
                      _this.end[1].char === _this.end[1].char.toLowerCase());
     this.tails = [];
@@ -759,7 +643,6 @@ function Tail(svg, note1, note2){
             }
         ];
     };
-    //this.getTailPos('c', 'c');
     this.addTail = function () {
         var tailPath;
         var pathObj;
@@ -951,9 +834,6 @@ function Tail(svg, note1, note2){
             pathObj.stroke({width: 0});
             _this.tails.push(pathObj);
         }
-
-        // 通用
-
     };
     this.update = function () {
         _this.stemDown = (_this.end[0].char === _this.end[0].char.toLowerCase() &&
@@ -979,8 +859,6 @@ function Tail(svg, note1, note2){
         _this.end[0].relatedTail = undefined;
         _this.end[1].inTail = false;
         _this.end[1].relatedTail = undefined;
-
-
     };
 
     this.addTail();
