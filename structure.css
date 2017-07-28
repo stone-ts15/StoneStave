@@ -1,0 +1,166 @@
+
+@font-face {
+    font-family: akvo;
+    src: url("./akvo/akvo.ttf");
+}
+
+@keyframes flash {
+    50% {color: orange}
+    100% {color: black}
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#top{
+    width: 100%;
+    height: 10vh;
+}
+
+#menu{
+    width: 100%;
+    height: 10vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: gray;
+
+    z-index: 2;
+
+    display: flex;
+
+
+    cursor: default;
+}
+
+#menu button{
+    margin: auto;
+}
+
+#main{
+    width: 100%;
+    position: relative;
+
+    z-index: 0;
+    background-color: #cccccc;
+}
+
+.clearfix::after{
+    content: '.';
+    display: block;
+    clear: both;
+}
+
+#tools{
+    /*width: 150px;*/
+    width: 10%;
+    min-width: 40px;
+    /*height: calc(100vh - 160px);*/
+    height: 90vh;
+    /*float: left;*/
+    position: fixed;
+    top: 10vh;
+
+
+    background-color: lightblue;
+}
+
+#tools p{
+    text-align: center;
+}
+
+/*p:hover{*/
+    /*animation-name: flash;*/
+    /*!*animation-delay: 2s;*!*/
+    /*animation-duration: 0.5s;*/
+/*}*/
+
+/*#info{*/
+    /*width: 300px;*/
+    /*height: 700px;*/
+    /*float: right;*/
+
+    /*background-color: lightcoral;*/
+/*}*/
+
+#stave{
+    /*margin-left: 200px;*/
+    /*margin-right: 350px;*/
+    min-width: 840px;
+    margin-left: 12%;
+    margin-right: 2%;
+    height: 1200px;
+    /*//height:90vh;*/
+
+    background-color: #ffffaa;
+
+    position: relative;
+}
+
+
+.page{
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+
+    width: 840px;
+    height: 1188px;
+
+}
+
+#stave .page svg{
+    background-color: #ffffff;
+}
+
+.fill{
+    width: 100%;
+    height: 100%;
+}
+
+svg line {
+    shape-rendering: crispEdges;
+}
+
+button.note, button.rest{
+    width: 4vw;
+    height:4vw;
+
+    margin-bottom: 2vw;
+
+    font-family: akvo;
+    font-size: 32px;
+
+    /*vertical-align: -20px;*/
+}
+
+#tools .information{
+    /*width: 100%;*/
+    display: block;
+}
+
+#tools button{
+    /*background-image: url("./src/button_note_1_normal.png");*/
+    /*background-position: center center;*/
+    background-size: cover;
+}
+
+#tools div{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.logo{
+    width: 10vh;
+    height: 10vh;
+    background-image: url("./src/logo.png");
+    background-size: cover;
+}

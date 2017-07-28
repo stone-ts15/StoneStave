@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>StoneStave</title>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="object.js"></script>
+    <script type="text/javascript" src="jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="svg.js"></script>
+    <script type="text/javascript" src="assistant.js"></script>
+    <script type="text/javascript" src="variables.js"></script>
+    <script type="text/javascript" src="response.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
+    <script type="text/javascript" src="saveSvgAsPng.js"></script>
+    <!--<script type="text/javascript" src="html2canvas.min.js"></script>-->
+    <!--<script type="text/javascript" src="html2canvas.svg.min.js"></script>-->
+    <!--<script type="text/javascript" src="canvg.min.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="structure.css">
+    <link rel="stylesheet" href="jquery-ui.min.css">
+    <link rel="shortcut icon"href="./src/logo.png">
+
+</head>
+<body>
+    <div id="content">
+    <div id="top">
+        <nav id="menu">
+            <div class="logo">
+
+            </div>
+            <button class="title">修改标题</button>
+            <div class="title" title="修改标题">
+                标题
+                <form>
+                    <input type="text" name="title">
+                </form>
+            </div>
+            <button class="author">修改作者</button>
+            <div class="author">
+                作者
+                <form>
+                    <input type="text" name="author">
+                </form>
+            </div>
+            <button class="clef">修改谱号</button>
+            <div class="clef">
+                谱号
+                <form>
+                    G：
+                    <input type="radio" checked="checked" name="clef" value="G" />
+                    F：
+                    <input type="radio" name="clef" value="F" />
+                </form>
+            </div>
+            <button class="key">修改调号</button>
+            <div class="key">
+                调号
+                <form id="name">
+                    C：
+                    <input type="radio" checked="checked" name="key" value="C" />
+                    D：
+                    <input type="radio" name="key" value="D" />
+                    E：
+                    <input type="radio" name="key" value="E" />
+                    F：
+                    <input type="radio" name="key" value="F" />
+                    G：
+                    <input type="radio" name="key" value="G" />
+                    A：
+                    <input type="radio" name="key" value="A" />
+                    B：
+                    <input type="radio" name="key" value="B" />
+                </form>
+                <br>
+                升降
+                <form id="accidental">
+                    自然：
+                    <input type="radio" checked="checked" name="key" value="" />
+                    <br>
+                    升：
+                    <input type="radio" name="key" value="sharp" />
+                    <br>
+                    降：
+                    <input type="radio" name="key" value="flat" />
+                </form>
+            </div>
+            <button class="time">修改节拍</button>
+            <div class="time">
+                节拍
+                <form>
+                    2/4:<input type="radio" name="time" value="2/4" />
+                    3/4:<input type="radio" name="time" value="3/4" />
+                    4/4:<input type="radio" checked="checked" name="time" value="4/4" />
+                    6/4:<input type="radio" name="time" value="6/4" />
+                    6/8:<input type="radio" name="time" value="6/8" />
+                    12/8:<input type="radio" name="time" value="12/8" />
+                </form>
+            </div>
+            <button class="tempo">修改速度</button>
+            <div class="tempo">
+                速度
+                <form>
+                    <input type="number" name="tempo"/>
+                </form>
+            </div>
+            <button class="save">保存图片</button>
+        </nav>
+        <div class="fill">
+
+        </div>
+    </div>
+
+
+        <div id="main" class="clearfix">
+
+            <div id="tools">
+                <p class="information">音符工具栏</p>
+                <div>
+
+                    <button class="note" rate="1" style="background-image: url('./src/note_1.png')"></button>
+                    <button class="note" rate="2" style="background-image: url('./src/note_2.png')"></button>
+                    <button class="note" rate="4" style="background-image: url('./src/note_4.png')"></button>
+                    <button class="note" rate="8" style="background-image: url('./src/note_8.png')"></button>
+                    <button class="note" rate="16" style="background-image: url('./src/note_16.png')"></button>
+                    <button class="note" rate="32" style="background-image: url('./src/note_32.png')"></button>
+
+                    <button class="rest" rate="1" style="background-image: url('./src/rest_1.png')"></button>
+                    <button class="rest" rate="2" style="background-image: url('./src/rest_2.png')"></button>
+                    <button class="rest" rate="4" style="background-image: url('./src/rest_4.png')"></button>
+                    <button class="rest" rate="8" style="background-image: url('./src/rest_8.png')"></button>
+                    <button class="rest" rate="16" style="background-image: url('./src/rest_16.png')"></button>
+                    <button class="rest" rate="32" style="background-image: url('./src/rest_32.png')"></button>
+                </div>
+
+            </div>
+            <!--<div id="info">-->
+                <!--<p>5678</p>-->
+            <!--</div>-->
+            <div id="stave" unselectable="on" onselectstart="return false;">
+                <!--<canvas id="page" width="1000" height="400">-->
+
+                <!--</canvas>-->
+
+                <div class="page">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<canvas id="te" width="840" height="1188"></canvas>-->
+
+
+</body>
+</html>
